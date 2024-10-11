@@ -13,43 +13,6 @@ interface ContactCardProps {
   href: string;
 }
 
-
-const SubtleWaveAnimation = () => (
-  <div className="absolute inset-x-0 bottom-0">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full">
-      <defs>
-        <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#333f52" stopOpacity="0.1" />
-          <stop offset="50%" stopColor="#333f52" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#333f52" stopOpacity="0.1" />
-        </linearGradient>
-      </defs>
-      <motion.path
-        fill="url(#waveGradient)"
-        initial={{
-          d: "M0,160 C320,300,420,300,740,200 C1060,100,1180,100,1440,160 V320 H0 Z"
-        }}
-        animate={{
-          d: [
-            "M0,160 C320,300,420,300,740,200 C1060,100,1180,100,1440,160 V320 H0 Z",
-            "M0,200 C320,100,420,100,740,200 C1060,300,1180,300,1440,200 V320 H0 Z",
-            "M0,160 C320,220,420,220,740,200 C1060,180,1180,180,1440,160 V320 H0 Z",
-            "M0,200 C320,100,420,100,740,200 C1060,300,1180,300,1440,200 V320 H0 Z",
-            "M0,160 C320,300,420,300,740,200 C1060,100,1180,100,1440,160 V320 H0 Z"
-          ]
-        }}
-        transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: 20,
-          ease: "easeInOut"
-        }}
-      />
-    </svg>
-  </div>
-);
-
-
 const SlidingQuotes = () => {
   const quotes = [
     { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
@@ -72,7 +35,7 @@ const SlidingQuotes = () => {
     }, 3000); 
 
     return () => clearInterval(timer);
-  }, []);
+  }, [quotes.length]);
 
   return (
     <div className="h-32 overflow-hidden bg-[#1D2D50] rounded-lg p-6 shadow-lg">
@@ -140,7 +103,7 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-[#8892B0] mb-8 text-lg">
-              I'm always excited to connect with fellow developers, potential clients, and tech enthusiasts. Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out through any of these channels:
+              I&apos;m always excited to connect with fellow developers, potential clients, and tech enthusiasts. Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out through any of these channels:
             </p>
             
             <div className="grid gap-4 sm:grid-cols-2">

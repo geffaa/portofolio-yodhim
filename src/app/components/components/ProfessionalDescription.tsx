@@ -98,7 +98,7 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          I specialize in <Highlight>full-stack development</Highlight>, with a particular focus on <Highlight>modern web technologies</Highlight>. My expertise spans across <Highlight>front-end frameworks</Highlight>, <Highlight>back-end systems</Highlight>, and <Highlight>database management</Highlight>. I'm committed to crafting <Highlight>user-centric applications</Highlight> that not only meet but exceed expectations, ensuring seamless functionality and an engaging user experience.
+          I specialize in <Highlight>full-stack development</Highlight>, with a particular focus on <Highlight>modern web technologies</Highlight>. My expertise spans across <Highlight>front-end frameworks</Highlight>, <Highlight>back-end systems</Highlight>, and <Highlight>database management</Highlight>. I&apos;m committed to crafting <Highlight>user-centric applications</Highlight> that not only meet but exceed expectations, ensuring seamless functionality and an engaging user experience.
         </motion.p>
       </motion.div>
 

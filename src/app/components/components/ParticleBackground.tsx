@@ -89,7 +89,9 @@ const ParticleBackground: React.FC = () => {
 
   useEffect(() => {
     if (!mountRef.current) return;
-
+  
+    const mountElement = mountRef.current;
+  
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -102,7 +104,8 @@ const ParticleBackground: React.FC = () => {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    mountRef.current.appendChild(renderer.domElement);
+
+    mountElement.appendChild(renderer.domElement);
 
     // Particle system setup
     const particleCount = 1500;
@@ -161,7 +164,7 @@ const ParticleBackground: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      mountRef.current?.removeChild(renderer.domElement);
+      mountElement.removeChild(renderer.domElement);
     };
   }, [animate]);
 
