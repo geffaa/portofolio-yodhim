@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import Image from 'next/image';
 import { projects, Project } from '../../lib/data/projects';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const ProjectSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState(projects[0]);

@@ -28,7 +28,7 @@ const HeroSection: React.FC = () => {
               style={{ y: yHi }}
               className="text-xl md:text-2xl mb-2 text-[#64FFDA]"
             >
-              Hi, I'm
+              Hi, I&apos;m
             </motion.p>
             <motion.h1 
               initial={{ opacity: 0 }}

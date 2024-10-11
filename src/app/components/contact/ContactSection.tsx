@@ -2,8 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Mail, Linkedin, Github, Phone, Quote, Sparkles, ChevronRight, LucideIcon, MessageSquare } from 'lucide-react';
+import { Mail, Linkedin, Github, Phone, Quote, MessageSquare } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import PersonalAIChatbot from '../chatbot/PersonalAIChatBot';
+
+interface ContactCardProps {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href: string;
+}
+
 
 const SubtleWaveAnimation = () => (
   <div className="absolute inset-x-0 bottom-0">
@@ -86,13 +95,6 @@ const SlidingQuotes = () => {
     </div>
   );
 };
-
-interface ContactCardProps {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-  href: string;
-}
 
 const ContactCard: React.FC<ContactCardProps> = ({ icon: Icon, label, value, href }) => (
   <motion.a

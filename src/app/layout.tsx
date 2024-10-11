@@ -9,8 +9,8 @@ import ParticleBackground from './components/components/ParticleBackground'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Portofolio Saya',
-  description: 'Website portofolio personal saya',
+  title: 'Yodhimas Portfolio',
+  description: 'My Website Portfolio',
 }
 
 export default function RootLayout({

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 interface Point {
   x: number;
@@ -13,18 +13,18 @@ const CursorCometTrailEffect: React.FC = () => {
   const requestRef = useRef<number>();
   const previousTimeRef = useRef<number>();
 
-  const addPoint = (x: number, y: number) => {
+  const addPoint = useCallback((x: number, y: number) => {
     const now = performance.now();
     setPoints(prevPoints => [...prevPoints, { x, y, time: now }]);
-  };
+  }, []);
 
-  const animateTrail = (time: number) => {
+  const animateTrail = useCallback((time: number) => {
     if (previousTimeRef.current !== undefined) {
       setPoints(prevPoints => prevPoints.filter(point => time - point.time < 500)); // 500ms trail duration
     }
     previousTimeRef.current = time;
     requestRef.current = requestAnimationFrame(animateTrail);
-  };
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -36,9 +36,11 @@ const CursorCometTrailEffect: React.FC = () => {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(requestRef.current!);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
     };
-  }, [animateTrail]);
+  }, [addPoint, animateTrail]);
 
   return (
     <svg

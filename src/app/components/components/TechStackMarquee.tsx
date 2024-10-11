@@ -6,7 +6,6 @@ import StackIcon from 'tech-stack-icons';
 
 const TechStackMarquee: React.FC = () => {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [marqueeWidth, setMarqueeWidth] = useState(0);
@@ -126,14 +125,8 @@ const TechStackMarquee: React.FC = () => {
             className="relative flex flex-col items-center"
             variants={iconVariants}
             whileHover="hover"
-            onHoverStart={() => {
-              setHoveredIcon(icon);
-              setIsPaused(true);
-            }}
-            onHoverEnd={() => {
-              setHoveredIcon(null);
-              setIsPaused(false);
-            }}
+            onHoverStart={() => setHoveredIcon(icon)}
+            onHoverEnd={() => setHoveredIcon(null)}
             style={{ originX: 0.5, originY: 0.5 }}
           >
             <motion.div

@@ -7,7 +7,6 @@ import AboutSection from './components/about';
 import DynamicTechStackShowcase from './components/components/InteractiveTechStack';
 import ProjectSection from './components/project/ProjectSection';
 import ContactSection from './components/contact';
-import InteractiveResumeTimeline from './components/game/InteractiveResumeTimeline';
 import SplashScreen from './components/splash/SplashScreen';
 
 const MainPage: React.FC = () => {

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from "three";
 import { useScroll } from './ScrollContent';
 
@@ -9,95 +9,24 @@ const ParticleBackground: React.FC = () => {
   const scrollY = useScroll();
   const [currentSection, setCurrentSection] = useState(0);
 
-  useEffect(() => {
-    if (!mountRef.current) return;
+  const animate = useCallback((
+    scene: THREE.Scene,
+    camera: THREE.PerspectiveCamera,
+    renderer: THREE.WebGLRenderer,
+    particleSystem: THREE.Points,
+    particleGeometry: THREE.BufferGeometry,
+    lineGeometry: THREE.BufferGeometry,
+    lineMesh: THREE.LineSegments,
+    colorPalettes: THREE.Color[][],
+    prevScrollY: React.MutableRefObject<number>,
+    time: React.MutableRefObject<number>
+  ) => {
+    const animateFrame = () => {
+      requestAnimationFrame(animateFrame);
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      time.current += 0.001;
 
-    const updateSize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    mountRef.current.appendChild(renderer.domElement);
-
-    // Particle system
-    const particleCount = 1500;
-    const particlesPerViewport = 300;
-    const particleGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-
-    const colorPalettes = [
-      [new THREE.Color("#cbfff3"), new THREE.Color("#8892B0"), new THREE.Color("#CCD6F6"), new THREE.Color("#64FFDA")],
-      [new THREE.Color("#FFD700"), new THREE.Color("#FFA500"), new THREE.Color("#FF4500"), new THREE.Color("#FF6347")],
-      [new THREE.Color("#4B0082"), new THREE.Color("#8A2BE2"), new THREE.Color("#9370DB"), new THREE.Color("#E6E6FA")],
-      [new THREE.Color("#006400"), new THREE.Color("#228B22"), new THREE.Color("#32CD32"), new THREE.Color("#90EE90")]
-    ];
-
-    const createParticle = (index: number, yOffset: number, paletteIndex: number) => {
-      const spread = 15;
-      positions[index * 3] = (Math.random() - 0.5) * spread;
-      positions[index * 3 + 1] = yOffset + (Math.random() - 0.5) * 5;
-      positions[index * 3 + 2] = (Math.random() - 0.5) * spread;
-
-      const colorPalette = colorPalettes[paletteIndex];
-      const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-      colors[index * 3] = color.r;
-      colors[index * 3 + 1] = color.g;
-      colors[index * 3 + 2] = color.b;
-    };
-
-    for (let i = 0; i < particleCount; i++) {
-      createParticle(i, Math.floor(i / particlesPerViewport) * 10 - 15, 0);
-    }
-
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const particleMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending,
-    });
-
-    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particleSystem);
-
-    // Line system
-    const lineGeometry = new THREE.BufferGeometry();
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x64FFDA,
-      transparent: true,
-      opacity: 0.1,
-      blending: THREE.AdditiveBlending,
-    });
-    const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(lineMesh);
-
-    camera.position.z = 5;
-
-    let prevScrollY = 0;
-    let time = 0;
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-
-      time += 0.001;
-
-      const scrollDelta = scrollY - prevScrollY;
-      prevScrollY = scrollY;
-
-      const viewportHeight = 10;
       const scrollFactor = 0.01;
-
       particleSystem.position.y = -scrollY * scrollFactor;
 
       const positions = particleGeometry.attributes.position.array as Float32Array;
@@ -113,13 +42,13 @@ const ParticleBackground: React.FC = () => {
 
       for (let i = 0; i < positions.length; i += 3) {
         const particleY = positions[i + 1] + particleSystem.position.y;
-        const viewportIndex = Math.floor(-particleY / viewportHeight);
+        const viewportIndex = Math.floor(-particleY / 10);
 
-        if (viewportIndex >= 0 && viewportIndex < particleCount / particlesPerViewport) {
+        if (viewportIndex >= 0 && viewportIndex < 5) {
           // Animate particles in the current viewport
-          positions[i] += Math.sin(time + i) * 0.001;
-          positions[i + 1] += Math.cos(time + i * 1.1) * 0.001;
-          positions[i + 2] += Math.sin(time + i * 0.5) * 0.001;
+          positions[i] += Math.sin(time.current + i) * 0.001;
+          positions[i + 1] += Math.cos(time.current + i * 1.1) * 0.001;
+          positions[i + 2] += Math.sin(time.current + i * 0.5) * 0.001;
 
           // Transition colors based on current section
           const targetColor = colorPalettes[currentSection % colorPalettes.length][Math.floor(i / 3) % 4];
@@ -141,7 +70,7 @@ const ParticleBackground: React.FC = () => {
           }
         } else {
           // Reset particles below the viewport
-          createParticle(i / 3, (viewportIndex + 1) * viewportHeight, currentSection % colorPalettes.length);
+          createParticle(positions, colors, i / 3, (viewportIndex + 1) * 10, currentSection % colorPalettes.length, colorPalettes);
         }
       }
 
@@ -151,9 +80,78 @@ const ParticleBackground: React.FC = () => {
       lineMesh.position.y = particleSystem.position.y;
 
       renderer.render(scene, camera);
+
+      prevScrollY.current = scrollY;
     };
 
-    animate();
+    animateFrame();
+  }, [scrollY, currentSection]);
+
+  useEffect(() => {
+    if (!mountRef.current) return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+    const updateSize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    mountRef.current.appendChild(renderer.domElement);
+
+    // Particle system setup
+    const particleCount = 1500;
+    const particleGeometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+
+    const colorPalettes = [
+      [new THREE.Color("#cbfff3"), new THREE.Color("#8892B0"), new THREE.Color("#CCD6F6"), new THREE.Color("#64FFDA")],
+      [new THREE.Color("#FFD700"), new THREE.Color("#FFA500"), new THREE.Color("#FF4500"), new THREE.Color("#FF6347")],
+      [new THREE.Color("#4B0082"), new THREE.Color("#8A2BE2"), new THREE.Color("#9370DB"), new THREE.Color("#E6E6FA")],
+      [new THREE.Color("#006400"), new THREE.Color("#228B22"), new THREE.Color("#32CD32"), new THREE.Color("#90EE90")]
+    ];
+
+    for (let i = 0; i < particleCount; i++) {
+      createParticle(positions, colors, i, Math.floor(i / 300) * 10 - 15, 0, colorPalettes);
+    }
+
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+    const particleMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particleSystem);
+
+    // Line system setup
+    const lineGeometry = new THREE.BufferGeometry();
+    const lineMaterial = new THREE.LineBasicMaterial({
+      color: 0x64FFDA,
+      transparent: true,
+      opacity: 0.1,
+      blending: THREE.AdditiveBlending,
+    });
+    const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+    scene.add(lineMesh);
+
+    camera.position.z = 5;
+
+    const prevScrollY = { current: 0 };
+    const time = { current: 0 };
+
+    animate(scene, camera, renderer, particleSystem, particleGeometry, lineGeometry, lineMesh, colorPalettes, prevScrollY, time);
 
     const handleResize = () => {
       updateSize();
@@ -163,13 +161,31 @@ const ParticleBackground: React.FC = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
+      mountRef.current?.removeChild(renderer.domElement);
     };
-  }, [scrollY, currentSection]);
+  }, [animate]);
 
   return <div ref={mountRef} className="fixed inset-0 z-10 pointer-events-none" />;
+};
+
+const createParticle = (
+  positions: Float32Array,
+  colors: Float32Array,
+  index: number,
+  yOffset: number,
+  paletteIndex: number,
+  colorPalettes: THREE.Color[][]
+) => {
+  const spread = 15;
+  positions[index * 3] = (Math.random() - 0.5) * spread;
+  positions[index * 3 + 1] = yOffset + (Math.random() - 0.5) * 5;
+  positions[index * 3 + 2] = (Math.random() - 0.5) * spread;
+
+  const colorPalette = colorPalettes[paletteIndex];
+  const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+  colors[index * 3] = color.r;
+  colors[index * 3 + 1] = color.g;
+  colors[index * 3 + 2] = color.b;
 };
 
 export default ParticleBackground;

@@ -102,7 +102,7 @@ const findBestMatch = (input: string): [string, boolean] => {
 
 const PersonalAIChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: "Hello! I'm Yodhi's AI assistant. I'm here to answer your questions about Yodhi's skills, projects, experiences, and more. What would you like to know about him?" }
+    { role: 'assistant', content: "Hello! I&apos;m Yodhi&apos;s AI assistant. I&apos;m here to answer your questions about Yodhi&apos;s skills, projects, experiences, and more. What would you like to know about him?" }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -130,7 +130,7 @@ const PersonalAIChatbot: React.FC = () => {
         setTimeout(() => {
           setMessages(prev => [...prev, { 
             role: 'assistant', 
-            content: "If you're not sure what to ask, you can inquire about Yodhi's skills, recent projects, work experience, or educational background. Feel free to ask anything!" 
+            content: "If you&apos;re not sure what to ask, you can inquire about Yodhi&apos;s skills, recent projects, work experience, or educational background. Feel free to ask anything!" 
           }]);
         }, 1000);
       }
@@ -150,7 +150,7 @@ const PersonalAIChatbot: React.FC = () => {
     <div className="bg-[#112240] rounded-lg shadow-md overflow-hidden h-[500px] flex flex-col z-50 relative">
       <div className="bg-[#1D3461] p-4">
         <h3 className="text-[#64FFDA] font-semibold flex items-center">
-          <Bot className="w-5 h-5 mr-2" /> Yodhi's Personal AI Assistant
+          <Bot className="w-5 h-5 mr-2" /> Yodhi&apos;s Personal AI Assistant
         </h3>
       </div>
       <div className="flex-grow overflow-y-auto p-4">
@@ -177,7 +177,7 @@ const PersonalAIChatbot: React.FC = () => {
         {isTyping && (
           <div className="flex justify-start">
             <div className="bg-[#233554] text-[#8892B0] rounded-lg p-3 max-w-xs animate-pulse">
-              Yodhi's AI is thinking...
+              Yodhi&apos;s AI is thinking...
             </div>
           </div>
         )}
