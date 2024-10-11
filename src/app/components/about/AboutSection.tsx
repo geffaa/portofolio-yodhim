@@ -33,7 +33,7 @@ const AboutSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
   const { languages } = useGitHubLanguages('geffaa');
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { scrollYProgress } = useScroll({
@@ -42,7 +42,7 @@ const AboutSection: React.FC = () => {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const yModel = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  // const yModel = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const yText = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   useEffect(() => {

@@ -4,6 +4,42 @@ import NodeCache from 'node-cache';
 
 const cache = new NodeCache({ stdTTL: 3600 }); // Cache for 1 hour
 
+// src/app/api/github-language.ts
+
+interface Repo {
+  id: number;
+  name: string;
+  full_name: string;
+  private: boolean;
+  owner: {
+    login: string;
+    id: number;
+    avatar_url: string;
+    url: string;
+  };
+  html_url: string;
+  description: string;
+  fork: boolean;
+  url: string;
+  created_at: string;
+  updated_at: string;
+  pushed_at: string;
+  git_url: string;
+  ssh_url: string;
+  clone_url: string;
+  svn_url: string;
+  homepage: string;
+  size: number;
+  stargazers_count: number;
+  watchers_count: number;
+  language: string;
+  forks_count: number;
+  open_issues_count: number;
+  master_branch: string;
+  default_branch: string;
+  score: number;
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { username } = req.query;
   
@@ -22,7 +58,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const repos = await response.json();
 
     // Process data to get language percentages
-    const languagePercentages = repos.reduce((acc: { [key: string]: number }, repo: any) => {
+    const languagePercentages = repos.reduce((acc: { [key: string]: number }, repo: Repo) => {
       const { language } = repo;
       if (language) {
         if (!acc[language]) {

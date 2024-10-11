@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const ParallaxSection: React.FC<{ children: React.ReactNode; offset?: number }> = ({ children, offset = 50 }) => {

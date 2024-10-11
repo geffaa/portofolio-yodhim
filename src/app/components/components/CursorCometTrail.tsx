@@ -38,7 +38,7 @@ const CursorCometTrailEffect: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(requestRef.current!);
     };
-  }, []);
+  }, [animateTrail]);
 
   return (
     <svg
