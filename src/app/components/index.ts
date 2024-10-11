@@ -1,2 +1,10 @@
 export { default as Navbar } from './navbar';
 export { default as HeroSection } from './hero';
+export { default as AboutSection } from './about';
+export { default as TechStackMarquee } from './components/TechStackMarquee';
+export { default as InteractiveTechStack } from './components/InteractiveTechStack';
+export { default as ProfessionalTechStackShowcase } from './components/InteractiveTechStack';
+export { default as DynamicTechStackShowcase } from './components/InteractiveTechStack';
+export { default as ProjectSection } from './project/ProjectSection';
+export { default as ContactSection } from './contact';
+export { default as Footer } from './footer';

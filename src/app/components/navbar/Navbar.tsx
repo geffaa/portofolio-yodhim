@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +22,9 @@ const Navbar: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
     const section = document.querySelector(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const navbarHeight = document.querySelector('nav')?.offsetHeight || 0;
+      const sectionTop = section.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      window.scrollTo({ top: sectionTop, behavior: 'smooth' });
     }
   };
 
@@ -57,7 +60,7 @@ const Navbar: React.FC = () => {
           </div>
           <div className="hidden md:block">
             <a 
-              href="/resume.pdf" 
+              href="/file/CV_Yodhimas-Geffananda.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-transparent border border-[#64FFDA] text-[#64FFDA] px-4 py-2 rounded hover:bg-[#64FFDA] hover:text-[#172A45] transition-colors"

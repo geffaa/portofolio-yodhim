@@ -65,3 +65,12 @@ body::-ms-scrollbar {
     overflow: overlay;
   }
 }
+
+body, html {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  background-image: linear-gradient(to bottom, #0D0C1B, #172A45);
+}
