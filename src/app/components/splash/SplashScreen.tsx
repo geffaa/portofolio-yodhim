@@ -22,9 +22,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       if (currentWordIndex < words.length - 1) {
         setCurrentWordIndex(currentWordIndex + 1);
       } else {
-        setTimeout(onFinish, 1000);
+        setTimeout(onFinish, 2000);
       }
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [currentWordIndex, onFinish]);
