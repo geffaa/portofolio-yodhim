@@ -10,7 +10,7 @@ interface SplashScreenProps {
 const words = [
   "WELCOME!",
   "YODHIMAS PORTFOLIO",
-  "ANALYTICAL, INNOVATIVE, RESILIENT",
+  "ANALYTICAL, INNOVATIVE, AND RESILIENT",
   "ENJOY!"
 ];
 
@@ -39,21 +39,27 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     >
       <AnimatedBackground />
       <AnimatePresence mode="wait">
-        <motion.div
-          key={currentWordIndex}
-          className="absolute text-[#64FFDA] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-center whitespace-nowrap"
-          initial={{ opacity: 0, x: '-100%', y: '100%' }}
-          animate={{ opacity: 1, x: '0%', y: '0%' }}
-          exit={{ opacity: 0, x: '100%', y: '-100%' }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 70,
-            damping: 20,
-            duration: 0.7
-          }}
-        >
-          {words[currentWordIndex]}
-        </motion.div>
+      <motion.div
+        key={currentWordIndex}
+        className="absolute text-[#64FFDA] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-center whitespace-normal max-w-xs mx-auto"
+        initial={{ opacity: 0, x: '-100%', y: '100%' }}
+        animate={{ opacity: 1, x: '0%', y: '0%' }}
+        exit={{ opacity: 0, x: '100%', y: '-100%' }}
+        transition={{
+          type: "spring",
+          stiffness: 70,
+          damping: 20,
+          duration: 0.7
+        }}
+      >
+        {currentWordIndex === 2 ? (
+          <span className="block max-w-xs mx-auto overflow-hidden text-ellipsis whitespace-normal sm:whitespace-normal md:whitespace-normal">
+            ANALYTICAL, INNOVATIVE, AND RESILIENT
+          </span>
+        ) : (
+          words[currentWordIndex]
+        )}
+      </motion.div>
       </AnimatePresence>
     </motion.div>
   );
