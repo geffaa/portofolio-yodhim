@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
