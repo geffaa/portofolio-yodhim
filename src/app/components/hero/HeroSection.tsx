@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Link from 'next/link';
 
 const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -48,15 +49,17 @@ const HeroSection: React.FC = () => {
             >
               INNOVATING THROUGH CODE
             </motion.p>
-            <motion.button 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.3 }}
-              style={{ y: yButton }}
-              className="bg-transparent border-2 border-[#64FFDA] text-[#64FFDA] hover:bg-[#64FFDA] hover:text-[#0D0C1B] font-bold py-2 px-6 rounded transition duration-300"
-            >
-              View My Projects
-            </motion.button>
+            <Link href="/timeline-game" passHref legacyBehavior>
+              <motion.a 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.3 }}
+                style={{ y: yButton }}
+                className="bg-transparent border-2 border-[#64FFDA] text-[#64FFDA] hover:bg-[#64FFDA] hover:text-[#0D0C1B] font-bold py-2 px-6 rounded transition duration-300 inline-block cursor-pointer"
+              >
+                Explore My Journey
+              </motion.a>
+            </Link>
           </div>
         </div>
       </div>

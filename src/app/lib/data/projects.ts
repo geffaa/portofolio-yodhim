@@ -14,7 +14,7 @@ export interface Project {
   export const projects: Project[] = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "Gelanggang Expo UGM 2024",
       shortDescription: "Full-stack solution with real-time inventory management.",
       longDescription: "A comprehensive e-commerce platform built with React and Node.js, featuring real-time inventory updates, secure payment processing, and a responsive design for optimal user experience across all devices. The platform includes features such as user authentication, product search and filtering, shopping cart functionality, and order tracking.",
       technologies: ["React", "Node.js", "MongoDB", "Redux", "Stripe", "Socket.io"],
@@ -26,7 +26,7 @@ export interface Project {
     },
     {
       id: 2,
-      title: "Task Management App",
+      title: "SUMU Super Apps",
       shortDescription: "Responsive app with collaborative features.",
       longDescription: "A collaborative task management application built with Vue.js and Firebase. It includes real-time updates, task assignment, progress tracking, and integrations with popular productivity tools. The app features a drag-and-drop interface for easy task organization, deadline reminders, and detailed analytics to help teams improve their productivity.",
       technologies: ["Vue.js", "Firebase", "Vuex", "Tailwind CSS", "Chart.js"],
@@ -38,7 +38,7 @@ export interface Project {
     },
     {
       id: 3,
-      title: "AI-Powered Chatbot",
+      title: "Sistem Informasi Rekam Medis",
       shortDescription: "Natural language processing for customer support.",
       longDescription: "An intelligent chatbot leveraging advanced NLP techniques to provide automated customer support. It integrates with existing CRM systems and can handle complex queries with high accuracy. The chatbot uses machine learning to continuously improve its responses and can seamlessly hand off to human agents when necessary.",
       technologies: ["Python", "TensorFlow", "NLP", "FastAPI", "Docker", "MongoDB"],
@@ -50,7 +50,7 @@ export interface Project {
     },
     {
       id: 4,
-      title: "Fitness Tracking App",
+      title: "Management Inventory",
       shortDescription: "Mobile app for tracking workouts and nutrition.",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
@@ -60,5 +60,64 @@ export interface Project {
       story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
       challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
     },
-    // Add more projects as needed
+    {
+      id: 5,
+      title: "Cinemate",
+      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
+      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      imageUrl: "/assets/dive.png",
+      projectUrl: "https://fitness-tracker.com",
+      githubUrl: "https://github.com/yourusername/fitness-tracker",
+      story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
+      challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
+    },
+    {
+      id: 6,
+      title: "Fizzi 3D Website",
+      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
+      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      imageUrl: "/assets/dive.png",
+      projectUrl: "https://fitness-tracker.com",
+      githubUrl: "https://github.com/yourusername/fitness-tracker",
+      story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
+      challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
+    },
+    {
+      id: 7,
+      title: "Shopiverse",
+      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
+      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      imageUrl: "/assets/dive.png",
+      projectUrl: "https://fitness-tracker.com",
+      githubUrl: "https://github.com/yourusername/fitness-tracker",
+      story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
+      challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
+    },
+    {
+      id: 8,
+      title: "Finnovate",
+      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
+      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      imageUrl: "/assets/dive.png",
+      projectUrl: "https://fitness-tracker.com",
+      githubUrl: "https://github.com/yourusername/fitness-tracker",
+      story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
+      challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
+    },
+    {
+      id: 9,
+      title: "Calorie Tracker ",
+      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
+      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      imageUrl: "/assets/dive.png",
+      projectUrl: "https://fitness-tracker.com",
+      githubUrl: "https://github.com/yourusername/fitness-tracker",
+      story: "As a fitness enthusiast, I always felt that existing tracking apps were missing key features I wanted. This project was my attempt to create the ultimate fitness companion app. I worked closely with personal trainers and nutritionists to ensure the app provided valuable, science-based insights and recommendations.",
+      challenges: "Accurately tracking and categorizing various types of exercises was a significant challenge, especially for strength training exercises. I had to develop robust algorithms for rep counting and form checking using the device's sensors. Another major hurdle was creating a flexible nutrition tracking system that could handle various dietary preferences and restrictions while still providing accurate nutritional information."
+    },
   ];

@@ -25,7 +25,8 @@
     "react-intersection-observer": "^9.13.1",
     "styled-components": "^6.1.13",
     "tech-stack-icons": "^2.1.0",
-    "three": "^0.169.0"
+    "three": "^0.169.0",
+    "troika-three-text": "^0.50.1"
   },
   "devDependencies": {
     "@sendgrid/mail": "^8.1.3",

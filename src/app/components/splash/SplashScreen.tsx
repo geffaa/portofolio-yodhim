@@ -7,94 +7,99 @@ interface SplashScreenProps {
   onFinish: () => void;
 }
 
+const words = [
+  "WELCOME!",
+  "YODHIMAS PORTFOLIO",
+  "ANALYTICAL, INNOVATIVE, AND RESILIENT",
+  "ENJOY!"
+];
+
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
-  const [text, setText] = useState("YG");
-  const fullName = "YODHIMAS GEFFANANDA";
-  const [particlesComplete, setParticlesComplete] = useState(false);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {
-    let currentIndex = 2;
-    const interval = setInterval(() => {
-      if (currentIndex <= fullName.length) {
-        setText(fullName.slice(0, currentIndex));
-        currentIndex++;
+    const timer = setTimeout(() => {
+      if (currentWordIndex < words.length - 1) {
+        setCurrentWordIndex(currentWordIndex + 1);
       } else {
-        clearInterval(interval);
-        setTimeout(() => setParticlesComplete(true), 2000);
-        setTimeout(onFinish, 4000);
+        setTimeout(onFinish, 1000);
       }
-    }, 200);
+    }, 1500);
 
-    return () => clearInterval(interval);
-  }, [onFinish]);
+    return () => clearTimeout(timer);
+  }, [currentWordIndex, onFinish]);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0C1B] overflow-hidden"
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0, filter: 'blur(10px)' }} // Efek blur saat exit
-        transition={{ duration: 5 }}
-      >
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0C1B] overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <AnimatedBackground />
+      <AnimatePresence mode="wait">
         <motion.div
-          className="text-[#64FFDA] text-4xl md:text-6xl lg:text-8xl font-bold tracking-tight relative"
-          initial={{ scale: 1, y: 0 }}
-          animate={{ 
-            scale: text.length > 2 ? 1.5 : 1,
-            y: text.length > 2 ? -40 : 0
+          key={currentWordIndex}
+          className="absolute text-[#64FFDA] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-center whitespace-nowrap"
+          initial={{ opacity: 0, x: '-100%', y: '100%' }}
+          animate={{ opacity: 1, x: '0%', y: '0%' }}
+          exit={{ opacity: 0, x: '100%', y: '-100%' }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 70,
+            damping: 20,
+            duration: 0.7
           }}
-          transition={{ duration: 1, ease: "easeInOut" }}
         >
-          {text}
-          <motion.div
-            className="mt-4 text-[#64FFDA] text-xl md:text-2xl lg:text-3xl font-semibold flex items-center justify-center" // Teks "Portfolio"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: text.length === fullName.length ? 1 : 0 }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          >
-            Portfolio
-          </motion.div>
-          <AnimatePresence>
-            {particlesComplete && (
-              <motion.div
-                className="absolute inset-0 -z-10"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, filter: 'blur(10px)' }} // Blur partikel saat exit
-                transition={{ duration: 1.5 }}
-              >
-                <Particles />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {words[currentWordIndex]}
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
-const Particles = () => {
+const AnimatedBackground: React.FC = () => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
   return (
-    <div className="absolute inset-0">
-      {Array.from({ length: 50 }).map((_, index) => (
+    <div className="absolute inset-0 opacity-20">
+      {Array.from({ length: 20 }).map((_, index) => (
         <motion.div
           key={index}
-          className="absolute w-2 h-2 bg-[#64FFDA] rounded-full"
+          className="absolute bg-[#64FFDA] rounded-full"
+          style={{
+            width: Math.random() * 20 + 5,
+            height: Math.random() * 20 + 5,
+          }}
           initial={{
-            opacity: 0,
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
+            scale: 0,
           }}
           animate={{
-            opacity: [0, 1, 0],
-            scale: [0, 2, 0],
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
+            scale: [0, 1, 0],
           }}
           transition={{
-            duration: Math.random() * 3 + 2,
+            duration: Math.random() * 5 + 3,
             repeat: Infinity,
-            repeatType: 'loop',
+            repeatType: "reverse",
           }}
         />
       ))}

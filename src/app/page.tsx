@@ -9,51 +9,89 @@ import ProjectSection from './components/project/ProjectSection';
 import ContactSection from './components/contact';
 import SplashScreen from './components/splash/SplashScreen';
 
+const SPLASH_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 const MainPage: React.FC = () => {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false);
+  const [contentLoaded, setContentLoaded] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const lastSplashTime = localStorage.getItem('lastSplashTime');
+    const currentTime = new Date().getTime();
+
+    if (!lastSplashTime || currentTime - Number(lastSplashTime) > SPLASH_INTERVAL) {
+      setShowSplash(true);
+      localStorage.setItem('lastSplashTime', currentTime.toString());
+    } else {
+      setShowSplash(false);
+      setContentLoaded(true);
+    }
+
     // Prevent scrolling when splash screen is shown
     if (showSplash) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      window.scrollTo(0, 0);
     }
 
     return () => {
       document.body.style.overflow = '';
     };
-  }, [showSplash]);
+  }, []);
 
   const handleSplashFinish = () => {
     setShowSplash(false);
+    setContentLoaded(true);
+    
+    // Ensure scroll position is at the top when content loads
     window.scrollTo(0, 0);
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   };
+
+  useEffect(() => {
+    if (contentLoaded && mainContentRef.current) {
+      // Ensure the main content is visible and scrollable
+      mainContentRef.current.style.height = 'auto';
+      mainContentRef.current.style.overflow = 'visible';
+      
+      // Scroll to top after a short delay
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 100);
+    }
+  }, [contentLoaded]);
 
   return (
     <>
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {showSplash && (
           <SplashScreen onFinish={handleSplashFinish} />
         )}
       </AnimatePresence>
-      <motion.div 
-        className="relative z-30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showSplash ? 0 : 1 }}
-        transition={{ duration: 4 }}
-      >
-        <div ref={heroRef}>
-          <HeroSection />
-        </div>
-        <DynamicTechStackShowcase />
-        <AboutSection />
-        <ProjectSection />
-        <ContactSection />
-        <Footer />
-      </motion.div>
+      <AnimatePresence>
+        {contentLoaded && (
+          <motion.div 
+            ref={mainContentRef}
+            className="relative z-30"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div ref={heroRef}>
+              <HeroSection />
+            </div>
+            <DynamicTechStackShowcase />
+            <AboutSection />
+            <ProjectSection />
+            <ContactSection />
+            <Footer />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
