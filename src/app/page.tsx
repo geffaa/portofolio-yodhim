@@ -18,18 +18,21 @@ const MainPage: React.FC = () => {
   const mainContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const lastSplashTime = localStorage.getItem('lastSplashTime');
-    const currentTime = new Date().getTime();
+    if (typeof window !== 'undefined') {
+      const lastSplashTime = localStorage.getItem('lastSplashTime');
+      const currentTime = new Date().getTime();
 
-    if (!lastSplashTime || currentTime - Number(lastSplashTime) > SPLASH_INTERVAL) {
-      setShowSplash(true);
-      localStorage.setItem('lastSplashTime', currentTime.toString());
-    } else {
-      setShowSplash(false);
-      setContentLoaded(true);
+      if (!lastSplashTime || currentTime - Number(lastSplashTime) > SPLASH_INTERVAL) {
+        setShowSplash(true);
+        localStorage.setItem('lastSplashTime', currentTime.toString());
+      } else {
+        setShowSplash(false);
+        setContentLoaded(true);
+      }
     }
+  }, []);
 
-    // Prevent scrolling when splash screen is shown
+  useEffect(() => {
     if (showSplash) {
       document.body.style.overflow = 'hidden';
     } else {
