@@ -80,7 +80,7 @@ const Navbar: React.FC = () => {
             YG
           </button>
           <div className="hidden md:flex space-x-8">
-            <NavButton id="home" text="Home" />
+            <NavButton id="hero" text="Home" />
             <NavButton id="about" text="About" />
             <NavButton id="projects" text="Projects" />
             <NavButton id="contact" text="Contact" />
