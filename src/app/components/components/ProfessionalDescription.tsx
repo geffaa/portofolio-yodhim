@@ -85,7 +85,7 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
         animate="visible"
       >
         <motion.p 
-          className="text-lg leading-relaxed text-[#8892B0] mb-4"
+          className="text-lg leading-relaxed text-[#8892B0] mb-4 text-justify"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -93,7 +93,7 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
           As a <Highlight>passionate software developer</Highlight>, I thrive on creating <Highlight>innovative</Highlight> and <Highlight>efficient solutions</Highlight> to complex challenges. My journey in the world of programming has equipped me with a <Highlight>diverse skill set</Highlight> and a <Highlight>problem-solving mindset</Highlight> that allows me to approach each project with creativity and precision.
         </motion.p>
         <motion.p 
-          className="text-lg leading-relaxed text-[#8892B0]"
+          className="text-lg leading-relaxed text-[#8892B0] text-justify"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

@@ -1,7 +1,7 @@
 export interface Project {
     id: number;
     title: string;
-    shortDescription: string;
+    role: string;
     longDescription: string;
     technologies: string[];
     imageUrl: string;
@@ -15,9 +15,9 @@ export interface Project {
     {
       id: 1,
       title: "Gelanggang Expo UGM 2024",
-      shortDescription: "Full-stack solution with real-time inventory management.",
+      role: "Frontend Developer",
       longDescription: "A comprehensive e-commerce platform built with React and Node.js, featuring real-time inventory updates, secure payment processing, and a responsive design for optimal user experience across all devices. The platform includes features such as user authentication, product search and filtering, shopping cart functionality, and order tracking.",
-      technologies: ["React", "Node.js", "MongoDB", "Redux", "Stripe", "Socket.io"],
+      technologies: ["Next Js", "Tailwind CSS", "Express"],
       imageUrl: "/assets/Dummy.jpg",
       projectUrl: "https://ecommerce-project.com",
       githubUrl: "https://github.com/yourusername/ecommerce-project",
@@ -27,9 +27,9 @@ export interface Project {
     {
       id: 2,
       title: "SUMU Super Apps",
-      shortDescription: "Responsive app with collaborative features.",
+      role: "Fullstack Developer",
       longDescription: "A collaborative task management application built with Vue.js and Firebase. It includes real-time updates, task assignment, progress tracking, and integrations with popular productivity tools. The app features a drag-and-drop interface for easy task organization, deadline reminders, and detailed analytics to help teams improve their productivity.",
-      technologies: ["Vue.js", "Firebase", "Vuex", "Tailwind CSS", "Chart.js"],
+      technologies: ["Flutter", "Firebase", "Laravel", "Tailwind CSS", "MySQL"],
       imageUrl: "/assets/Dummy.jpg",
       projectUrl: "https://task-manager-app.com",
       githubUrl: "https://github.com/yourusername/task-manager-app",
@@ -39,9 +39,9 @@ export interface Project {
     {
       id: 3,
       title: "Sistem Informasi Rekam Medis",
-      shortDescription: "Natural language processing for customer support.",
+      role: "Project Manager, Fullstack Developer",
       longDescription: "An intelligent chatbot leveraging advanced NLP techniques to provide automated customer support. It integrates with existing CRM systems and can handle complex queries with high accuracy. The chatbot uses machine learning to continuously improve its responses and can seamlessly hand off to human agents when necessary.",
-      technologies: ["Python", "TensorFlow", "NLP", "FastAPI", "Docker", "MongoDB"],
+      technologies: ["Yii2", "MySQL"],
       imageUrl: "/assets/Dummy.jpg",
       projectUrl: "https://ai-chatbot.com",
       githubUrl: "https://github.com/yourusername/ai-chatbot",
@@ -51,9 +51,9 @@ export interface Project {
     {
       id: 4,
       title: "Management Inventory",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Fullstack Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
-      technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
+      technologies: ["Laravel", "Tailwind CSS"],
       imageUrl: "/assets/Dummy.jpg",
       projectUrl: "https://fitness-tracker.com",
       githubUrl: "https://github.com/yourusername/fitness-tracker",
@@ -63,7 +63,7 @@ export interface Project {
     {
       id: 5,
       title: "Cinemate",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Fullstack Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
       imageUrl: "/assets/Dummy.jpg",
@@ -75,7 +75,7 @@ export interface Project {
     {
       id: 6,
       title: "Fizzi 3D Website",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Fullstack Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
       imageUrl: "/assets/Dummy.jpg",
@@ -87,7 +87,7 @@ export interface Project {
     {
       id: 7,
       title: "Shopiverse",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Fullstack Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
       imageUrl: "/assets/Dummy.jpg",
@@ -99,7 +99,7 @@ export interface Project {
     {
       id: 8,
       title: "Finnovate",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Mobile Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
       imageUrl: "/assets/Dummy.jpg",
@@ -111,7 +111,7 @@ export interface Project {
     {
       id: 9,
       title: "Calorie Tracker ",
-      shortDescription: "Mobile app for tracking workouts and nutrition.",
+      role: "Mobile Developer",
       longDescription: "A comprehensive fitness tracking mobile application built with React Native. It offers workout planning, nutrition tracking, progress visualization, and integration with popular fitness devices. The app uses machine learning to provide personalized workout and diet recommendations based on user goals and progress.",
       technologies: ["React Native", "Redux", "Firebase", "GraphQL", "D3.js", "TensorFlow Lite"],
       imageUrl: "/assets/Dummy.jpg",

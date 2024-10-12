@@ -88,7 +88,7 @@ const ContactSection: React.FC = () => {
     <section id='contact' className="bg-transparent z-50 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-screen">
       <div className="max-w-7xl mx-auto relative z-50">
         <motion.h2 
-          className="text-4xl font-bold text-[#64FFDA] mb-12 text-center"
+          className="text-4xl font-bold text-[#CCD6F6] mb-12 text-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -102,7 +102,7 @@ const ContactSection: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <p className="text-[#8892B0] mb-8 text-lg">
+            <p className="text-[#8892B0] mb-8 text-lg text-justify">
               I&apos;m always excited to connect with fellow developers, potential clients, and tech enthusiasts. Whether you have a question, want to collaborate, or just want to say hi, feel free to reach out through any of these channels:
             </p>
             

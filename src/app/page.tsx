@@ -2,9 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Footer, HeroSection } from './components';
+import { Footer, HeroSection, ProfessionalTechStackShowcase } from './components';
 import AboutSection from './components/about';
-import DynamicTechStackShowcase from './components/components/InteractiveTechStack';
 import ProjectSection from './components/project/ProjectSection';
 import ContactSection from './components/contact';
 import SplashScreen from './components/splash/SplashScreen';
@@ -87,7 +86,7 @@ const MainPage: React.FC = () => {
             <div ref={heroRef}>
               <HeroSection />
             </div>
-            <DynamicTechStackShowcase />
+            <ProfessionalTechStackShowcase />
             <AboutSection />
             <ProjectSection />
             <ContactSection />

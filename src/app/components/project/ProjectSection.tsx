@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,18 +22,25 @@ const ProjectSection = () => {
   const projectCardVariants = {
     initial: { opacity: 0, y: 50 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -50, transition: { duration: 0.5 } }
+    exit: { opacity: 0, y: -50, transition: { duration: 0.5 } },
   };
 
   return (
-    <section id="projects" className="relative w-full min-h-screen bg-transparent text-white overflow-hidden py-20">
+    <motion.section
+      id="projects"
+      className="relative w-full min-h-screen bg-transparent text-white overflow-hidden py-20"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <motion.div 
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-4xl font-extrabold text-[#64FFDA] mb-12 text-center">
+        <h2 className="text-4xl font-extrabold text-[#CCD6F6] mb-12 text-center">
           Featured Projects
         </h2>
         
@@ -52,11 +59,12 @@ const ProjectSection = () => {
                 alt={featuredProjects[currentIndex].title}
                 layout="fill"
                 objectFit="cover"
+                loading="lazy"  // Tambahkan lazy loading
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
               <div className="absolute bottom-0 left-0 p-8 text-white">
                 <h3 className="text-3xl font-bold mb-2">{featuredProjects[currentIndex].title}</h3>
-                <p className="text-lg mb-4">{featuredProjects[currentIndex].shortDescription}</p>
+                <p className="text-lg mb-4">{featuredProjects[currentIndex].role}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {featuredProjects[currentIndex].technologies.map((tech, index) => (
                     <span
@@ -84,7 +92,7 @@ const ProjectSection = () => {
           </a>
         </div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 };
 
