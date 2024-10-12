@@ -42,19 +42,20 @@ const timelineData = [
 ];
 
 const TimelineGame: React.FC = () => {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const [selectedMilestone, setSelectedMilestone] = useState<typeof timelineData[0] | null>(null);
-
-  useEffect(() => {
-    if (!mountRef.current) return;
-
-    // Scene setup
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0); // Transparent background
-    mountRef.current.appendChild(renderer.domElement);
+    const mountRef = useRef<HTMLDivElement>(null);
+    const [selectedMilestone, setSelectedMilestone] = useState<typeof timelineData[0] | null>(null);
+  
+    useEffect(() => {
+      const mountElement = mountRef.current;
+      if (!mountElement) return;
+  
+      // Scene setup
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0);
+      mountElement.appendChild(renderer.domElement);
 
     // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -151,11 +152,11 @@ const TimelineGame: React.FC = () => {
 
     // Cleanup
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('click', onMouseClick);
-      mountRef.current?.removeChild(renderer.domElement);
-    };
-  }, []);
+        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('click', onMouseClick);
+        mountElement.removeChild(renderer.domElement);
+      };
+    }, []);
 
   return (
     <div className="relative w-full h-screen">

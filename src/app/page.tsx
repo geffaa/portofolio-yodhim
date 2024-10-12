@@ -39,7 +39,7 @@ const MainPage: React.FC = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [showSplash]);
 
   const handleSplashFinish = () => {
     setShowSplash(false);
