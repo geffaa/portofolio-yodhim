@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 const timelineData = [
   {
@@ -118,7 +119,7 @@ const InteractiveTimelineGame = () => {
             onMouseMove={handleMouseMove}
           >
             <div className="relative w-full h-full group">
-              <img
+              <Image
                 src={timelineData[currentIndex].image}
                 alt={timelineData[currentIndex].title}
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const SubtleWaveAnimation = () => (
@@ -38,6 +38,23 @@ const SubtleWaveAnimation = () => (
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Fungsi untuk mengambil jumlah pengunjung dari API
+    const fetchVisitorCount = async () => {
+      try {
+        // Ganti URL ini dengan endpoint API Anda yang sebenarnya
+        const response = await fetch('/api/visitor-count');
+        const data = await response.json();
+        setVisitorCount(data.count);
+      } catch (error) {
+        console.error('Error fetching visitor count:', error);
+      }
+    };
+
+    fetchVisitorCount();
+  }, []);
 
   return (
     <motion.footer 
@@ -57,13 +74,30 @@ const Footer: React.FC = () => {
           © {currentYear} Yodhimas. All rights reserved.
         </motion.p>
         <motion.p 
-          className="text-center text-sm"
+          className="text-center text-sm mb-2"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
           Designed and built with passion and a lot of <span role="img" aria-label="coffee">☕</span>
         </motion.p>
+        {visitorCount !== null && (
+          <motion.p
+            className="text-center text-sm"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            Total Visitors: {' '}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              {visitorCount}
+            </motion.span>
+          </motion.p>
+        )}
       </div>
     </motion.footer>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, MotionValue } from 'framer-motion';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 
 interface ProfessionalDescriptionProps {
   yText: MotionValue<number>;
