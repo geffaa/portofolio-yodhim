@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
           </div>
           <div className="hidden md:block">
             <a 
-              href="/file/CV_Yodhimas-Geffananda.pdf" 
+              href="/not-found" 
               target="_blank" 
               rel="noopener noreferrer"
               className="bg-transparent border border-[#64FFDA] text-[#64FFDA] px-6 py-2 rounded hover:bg-[#64FFDA] hover:text-[#172A45] transition-colors text-lg font-medium"
