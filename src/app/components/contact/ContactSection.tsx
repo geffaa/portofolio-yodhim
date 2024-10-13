@@ -79,9 +79,9 @@ const ContactCard: React.FC<ContactCardProps> = ({ icon: Icon, label, value, hre
 const ContactSection: React.FC = () => {
   const contacts: ContactCardProps[] = [
     { icon: Mail, label: 'Email', value: 'yodhimas02@gmail.com', href: 'mailto:yodhimas02@gmail.com' },
-    { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/yodhimas', href: 'https://linkedin.com/in/yodhimas' },
-    { icon: Github, label: 'GitHub', value: 'github.com/yodhimas', href: 'https://github.com/yodhimas' },
-    { icon: Phone, label: 'WhatsApp', value: '+62 812-3456-7890', href: 'https://wa.me/6281234567890' }
+    { icon: Linkedin, label: 'LinkedIn', value: 'linkedin.com/in/yodhimas-geffananda', href: 'https://linkedin.com/in/yodhimas-geffananda' },
+    { icon: Github, label: 'GitHub', value: 'github.com/geffaa', href: 'https://github.com/geffaa' },
+    { icon: Phone, label: 'WhatsApp', value: '+6285869566961', href: 'https://wa.me/6285869566961' }
   ];
 
   return (

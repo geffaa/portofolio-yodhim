@@ -1,191 +1,170 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const timelineData = [
   {
     id: 1,
-    name: "Early Years",
+    title: "Early Years",
     date: "1990-1995",
     description: "Born and raised in a small town, showing early interest in technology.",
-    position: new THREE.Vector3(-20, 0, -5)
+    image: "/assets/Dummy.jpg"
   },
   {
     id: 2,
-    name: "School Days",
+    title: "School Days",
     date: "1995-2008",
     description: "Excelled in mathematics and science, participated in coding competitions.",
-    position: new THREE.Vector3(-10, 0, -5)
+    image: "/assets/Dummy.jpg"
   },
   {
     id: 3,
-    name: "University",
+    title: "University",
     date: "2008-2012",
     description: "Studied Computer Science, focused on AI and Machine Learning.",
-    position: new THREE.Vector3(0, 0, -5)
+    image: "/assets/Dummy.jpg"
   },
   {
     id: 4,
-    name: "First Job",
+    title: "First Job",
     date: "2012-2016",
     description: "Worked as a junior developer at a tech startup, gained valuable experience.",
-    position: new THREE.Vector3(10, 0, -5)
+    image: "/assets/Dummy.jpg"
   },
   {
     id: 5,
-    name: "Current Role",
+    title: "Current Role",
     date: "2016-Present",
     description: "Senior Software Engineer specializing in full-stack development and cloud architecture.",
-    position: new THREE.Vector3(20, 0, -5)
+    image: "/assets/Dummy.jpg"
   }
 ];
 
-const TimelineGame: React.FC = () => {
-    const mountRef = useRef<HTMLDivElement>(null);
-    const [selectedMilestone, setSelectedMilestone] = useState<typeof timelineData[0] | null>(null);
-  
-    useEffect(() => {
-      const mountElement = mountRef.current;
-      if (!mountElement) return;
-  
-      // Scene setup
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setClearColor(0x000000, 0);
-      mountElement.appendChild(renderer.domElement);
-  
-      // Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-      scene.add(ambientLight);
-  
-      // Load image texture
-      const textureLoader = new THREE.TextureLoader();
-      const imageTexture = textureLoader.load('/assets/Dummy.jpg');
-  
-      // Timeline frames
-      const frames: THREE.Mesh[] = [];
-      timelineData.forEach((milestone) => {
-        const frameGeometry = new THREE.BoxGeometry(3, 4, 0.1);
-        const frameMaterial = new THREE.MeshPhongMaterial({ 
-          map: imageTexture,
-          color: 0xFFFFFF
-        });
-        const frame = new THREE.Mesh(frameGeometry, frameMaterial);
-        frame.position.copy(milestone.position);
-        scene.add(frame);
-        frames.push(frame);
-  
-        // Frame lighting
-        const frameLight = new THREE.PointLight(0x64FFDA, 1, 5);
-        frameLight.position.copy(milestone.position);
-        frameLight.position.z += 1;
-        scene.add(frameLight);
-  
-        // Add text to frame
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = 512;
-        canvas.height = 512;
-        if (context) {
-          context.font = 'bold 48px Arial';
-          context.textAlign = 'center';
-          context.fillStyle = 'white';
-          context.strokeStyle = 'black';
-          context.lineWidth = 8;
-          context.strokeText(milestone.name, 256, 128);
-          context.fillText(milestone.name, 256, 128);
-          
-          context.font = 'bold 36px Arial';
-          context.strokeText(milestone.date, 256, 192);
-          context.fillText(milestone.date, 256, 192);
-        }
-        const texture = new THREE.CanvasTexture(canvas);
-        const textMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-        const textGeometry = new THREE.PlaneGeometry(2.8, 3.8);
-        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
-        textMesh.position.copy(milestone.position);
-        textMesh.position.z += 0.06;
-        scene.add(textMesh);
-      });
-  
-      camera.position.set(0, 0, 10);
-      camera.lookAt(0, 0, 0);
-  
-      // WASD controls
-      const moveSpeed = 0.1;
-      const keyState: { [key: string]: boolean } = {};
-  
-      window.addEventListener('keydown', (e) => { keyState[e.code] = true; });
-      window.addEventListener('keyup', (e) => { keyState[e.code] = false; });
-  
-      // Raycaster for interaction
-      const raycaster = new THREE.Raycaster();
-      const mouse = new THREE.Vector2();
-  
-      window.addEventListener('click', onMouseClick);
-  
-      function onMouseClick(event: MouseEvent) {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-  
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(frames);
-  
-        if (intersects.length > 0) {
-          const index = frames.indexOf(intersects[0].object as THREE.Mesh);
-          setSelectedMilestone(timelineData[index]);
-        }
-      }
-  
-      // Animation loop
-      function animate() {
-        requestAnimationFrame(animate);
-  
-        // WASD movement
-        if (keyState['KeyW']) camera.position.z -= moveSpeed;
-        if (keyState['KeyS']) camera.position.z += moveSpeed;
-        if (keyState['KeyA']) camera.position.x -= moveSpeed;
-        if (keyState['KeyD']) camera.position.x += moveSpeed;
-  
-        renderer.render(scene, camera);
-      }
-      animate();
-  
-      // Resize handler
-      function handleResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      }
-      window.addEventListener('resize', handleResize);
-  
-      // Cleanup
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        window.removeEventListener('click', onMouseClick);
-        mountElement.removeChild(renderer.domElement);
-      };
-    }, []);
-  
-    return (
-      <div className="relative w-full h-screen">
-        <div ref={mountRef} className="absolute inset-0" />
-        {selectedMilestone && (
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
-            <h2 className="text-2xl font-bold">{selectedMilestone.name}</h2>
-            <p className="text-sm text-gray-300">{selectedMilestone.date}</p>
-            <p className="mt-2">{selectedMilestone.description}</p>
-          </div>
-        )}
-        <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded">
-          <p>Use W, A, S, D keys to move the camera</p>
-          <p>Click on frames to view details</p>
-        </div>
-      </div>
-    );
+const InteractiveTimelineGame = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const frameRef = useRef<HTMLDivElement>(null);
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentIndex((prevIndex) => {
+      let newIndex = prevIndex + newDirection;
+      if (newIndex >= timelineData.length) newIndex = 0;
+      if (newIndex < 0) newIndex = timelineData.length - 1;
+      return newIndex;
+    });
   };
-  
-  export default TimelineGame;
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowLeft") paginate(-1);
+      if (event.key === "ArrowRight") paginate(1);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    if (!frameRef.current) return;
+    const { clientX, clientY } = event;
+    const { left, top, width, height } = frameRef.current.getBoundingClientRect();
+    const x = (clientX - left) / width;
+    const y = (clientY - top) / height;
+    frameRef.current.style.setProperty('--x', `${x * 100}%`);
+    frameRef.current.style.setProperty('--y', `${y * 100}%`);
+  };
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.5,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 0.5,
+    }),
+  };
+
+  return (
+    <div className="relative w-full h-screen bg-gradient-to-r from-[#0A192F] to-[#112240] overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+              scale: { duration: 0.2 },
+            }}
+            className="absolute w-4/5 h-4/5 bg-[#233554] rounded-lg shadow-2xl overflow-hidden"
+            ref={frameRef}
+            onMouseMove={handleMouseMove}
+          >
+            <div className="relative w-full h-full group">
+              <img
+                src={timelineData[currentIndex].image}
+                alt={timelineData[currentIndex].title}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-700 ease-out opacity-0 group-hover:opacity-100" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full transition-transform duration-700 ease-out group-hover:translate-y-0">
+                <h2 className="text-3xl font-bold mb-2">{timelineData[currentIndex].title}</h2>
+                <p className="text-xl mb-4">{timelineData[currentIndex].date}</p>
+                <p className="text-lg">{timelineData[currentIndex].description}</p>
+              </div>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(255,255,255,0.28)_10%,transparent_80%)]" />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <button
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-[#64FFDA] text-[#0A192F] p-2 rounded-full z-10"
+        onClick={() => paginate(-1)}
+      >
+        <ChevronLeft size={24} />
+      </button>
+      <button
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-[#64FFDA] text-[#0A192F] p-2 rounded-full z-10"
+        onClick={() => paginate(1)}
+      >
+        <ChevronRight size={24} />
+      </button>
+
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        {timelineData.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full ${
+              index === currentIndex ? "bg-[#64FFDA]" : "bg-[#8892B0]"
+            }`}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
+
+      <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded z-10">
+        <p>Use arrow keys or buttons to navigate</p>
+      </div>
+    </div>
+  );
+};
+
+export default InteractiveTimelineGame;

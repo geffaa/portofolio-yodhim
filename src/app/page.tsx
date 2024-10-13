@@ -47,7 +47,6 @@ const MainPage: React.FC = () => {
     setShowSplash(false);
     setContentLoaded(true);
     
-    // Ensure scroll position is at the top when content loads
     window.scrollTo(0, 0);
     if (heroRef.current) {
       heroRef.current.scrollIntoView({ behavior: 'auto', block: 'start' });
@@ -56,11 +55,9 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     if (contentLoaded && mainContentRef.current) {
-      // Ensure the main content is visible and scrollable
       mainContentRef.current.style.height = 'auto';
       mainContentRef.current.style.overflow = 'visible';
       
-      // Scroll to top after a short delay
       setTimeout(() => {
         window.scrollTo(0, 0);
       }, 100);

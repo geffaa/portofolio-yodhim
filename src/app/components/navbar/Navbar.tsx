@@ -6,13 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const sections = ['home', 'about', 'projects', 'contact'];
+      const sections = ['hero', 'about', 'projects', 'contact'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -24,6 +24,9 @@ const Navbar: React.FC = () => {
 
       if (currentSection) {
         setActiveSection(currentSection);
+      } else if (window.scrollY < 50) {
+        // If we're near the top of the page, set the hero section as active
+        setActiveSection('hero');
       }
     };
     window.addEventListener('scroll', handleScroll);

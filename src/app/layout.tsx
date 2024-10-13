@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Inter } from 'next/font/google'
 import './globals.css'
+import './styles/glitch.css'
 import { Navbar } from './components'
 import SmoothScroll from './components/components/SmoothScroll'
 import CursorCometTrailEffect from './components/components/CursorCometTrail'

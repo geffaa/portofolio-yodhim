@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, MotionValue } from 'framer-motion';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 interface ProfessionalDescriptionProps {
   yText: MotionValue<number>;
@@ -58,17 +58,19 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
             </motion.div>
           ))}
         </div>
-        <motion.a
-          href="https://github.com/geffaa"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center space-x-2 bg-[#0A192F] p-3 rounded-lg text-[#64FFDA] hover:bg-[#112240] transition-colors duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaGithub className="text-xl" />
-          <span>View GitHub Profile</span>
-        </motion.a>
+        <div className="flex space-x-4">
+          <motion.a
+            href="https://github.com/geffaa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center space-x-2 bg-[#0A192F] p-3 rounded-lg text-[#64FFDA] hover:bg-[#112240] transition-colors duration-300 flex-1"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <FaGithub className="text-xl" />
+            <span>GitHub Profile</span>
+          </motion.a>
+        </div>
       </div>
     );
   };
@@ -90,7 +92,7 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          As a <Highlight>passionate software developer</Highlight>, I thrive on creating <Highlight>innovative</Highlight> and <Highlight>efficient solutions</Highlight> to complex challenges. My journey in the world of programming has equipped me with a <Highlight>diverse skill set</Highlight> and a <Highlight>problem-solving mindset</Highlight> that allows me to approach each project with creativity and precision.
+          As a <Highlight>fifth-semester Software Engineering student</Highlight> at <Highlight>Universitas Gadjah Mada</Highlight> with a strong <Highlight>GPA of 3.68</Highlight>, I am passionate about creating <Highlight>innovative</Highlight> and <Highlight>efficient solutions</Highlight> to complex challenges. My academic journey, combined with active involvement in organizational activities, has equipped me with a <Highlight>diverse skill set</Highlight> encompassing <Highlight>leadership</Highlight>, <Highlight>teamwork</Highlight>, and <Highlight>technical proficiency</Highlight>.
         </motion.p>
         <motion.p 
           className="text-lg leading-relaxed text-[#8892B0] text-justify"
@@ -98,7 +100,7 @@ const ProfessionalDescription: React.FC<ProfessionalDescriptionProps> = ({ yText
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          I specialize in <Highlight>full-stack development</Highlight>, with a particular focus on <Highlight>modern web technologies</Highlight>. My expertise spans across <Highlight>front-end frameworks</Highlight>, <Highlight>back-end systems</Highlight>, and <Highlight>database management</Highlight>. I&apos;m committed to crafting <Highlight>user-centric applications</Highlight> that not only meet but exceed expectations, ensuring seamless functionality and an engaging user experience.
+          I specialize in <Highlight>fullstack</Highlight> and <Highlight>mobile development</Highlight>, with hands-on experience in various programming languages and frameworks. My expertise spans across <Highlight>modern web technologies</Highlight> and <Highlight>mobile platforms</Highlight>. I&apos;m dedicated to crafting <Highlight>user-centric applications</Highlight> that not only meet but exceed expectations, ensuring seamless functionality and an engaging user experience. Continuously improving my skills, I stay updated with <Highlight>industry trends</Highlight> to bring cutting-edge solutions to every project.
         </motion.p>
       </motion.div>
 
