@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface SplashScreenProps {
@@ -15,6 +15,7 @@ const words = [
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isFinishing, setIsFinishing] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,6 +30,83 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
     return () => clearTimeout(timer);
   }, [currentWordIndex, onFinish]);
 
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+
+    const resizeCanvas = () => {
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Particle system
+    const particles: Array<{x: number, y: number, radius: number, color: string, velocity: {x: number, y: number}}> = [];
+    const particleCount = Math.min(100, Math.floor(window.innerWidth / 10));
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2 + 1,
+        color: `hsl(${Math.random() * 360}, 50%, 50%)`,
+        velocity: {
+          x: (Math.random() - 0.5) * 3,
+          y: (Math.random() - 0.5) * 3
+        }
+      });
+    }
+
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle, index) => {
+        particle.x += particle.velocity.x;
+        particle.y += particle.velocity.y;
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.velocity.x *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.velocity.y *= -1;
+
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color;
+        ctx.fill();
+
+        particles.slice(index + 1).forEach(otherParticle => {
+          const dx = particle.x - otherParticle.x;
+          const dy = particle.y - otherParticle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(otherParticle.x, otherParticle.y);
+            ctx.strokeStyle = `rgba(255, 255, 255, ${1 - distance / 100})`;
+            ctx.stroke();
+          }
+        });
+      });
+
+      animationFrameId = requestAnimationFrame(drawParticles);
+    };
+
+    drawParticles();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', resizeCanvas);
+    };
+  }, []);
+
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0C1B] overflow-hidden"
@@ -36,6 +114,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
     >
+      <canvas ref={canvasRef} className="absolute inset-0" />
       <div className="relative w-full h-full flex items-center justify-center">
         <AnimatePresence mode="wait">
           {!isFinishing && (
@@ -59,7 +138,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         {isFinishing && (
           <FinalAnimation />
         )}
-        <BackgroundAnimation />
       </div>
     </motion.div>
   );
@@ -82,44 +160,7 @@ const FinalAnimation: React.FC = () => {
           scale: { duration: 0.5, ease: "easeOut" }
         }}
       />
-      <motion.div
-        className="absolute text-[#64FFDA] text-xl sm:text-2xl md:text-3xl font-bold"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
-      >
-        Loading...
-      </motion.div>
     </motion.div>
-  );
-};
-
-const BackgroundAnimation: React.FC = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[...Array(20)].map((_, index) => (
-        <motion.div
-          key={index}
-          className="absolute w-2 h-2 bg-[#64FFDA] rounded-full"
-          initial={{
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            opacity: 0,
-          }}
-          animate={{
-            y: [null, window.innerHeight + 10],
-            opacity: [0, 1, 1, 0],
-          }}
-          transition={{
-            duration: Math.random() * 3 + 2,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear",
-            delay: Math.random() * 2,
-          }}
-        />
-      ))}
-    </div>
   );
 };
 
