@@ -134,15 +134,15 @@ const Navbar: React.FC = () => {
               <NavButton id="about" text="About" />
               <NavButton id="projects" text="Projects" />
               <NavButton id="contact" text="Contact" />
-              <a 
-                href="/file/CV_Yodhimas-Geffananda.pdf" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-transparent border border-[#64FFDA] text-[#64FFDA] px-6 py-2 rounded hover:bg-[#64FFDA] hover:text-[#172A45] transition-colors text-lg font-medium"
-              >
-                Resume
-              </a>
-            </div>
+            <a 
+              href="/not-found" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-transparent border border-[#64FFDA] text-[#64FFDA] px-6 py-2 rounded hover:bg-[#64FFDA] hover:text-[#172A45] transition-colors text-lg font-medium"
+            >
+              Resume
+            </a>
+          </div>
           </motion.div>
         )}
       </AnimatePresence>
