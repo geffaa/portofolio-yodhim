@@ -41,19 +41,22 @@ const Footer: React.FC = () => {
   const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
-    // Fungsi untuk mengambil jumlah pengunjung dari API
-    const fetchVisitorCount = async () => {
-      try {
-        // Ganti URL ini dengan endpoint API Anda yang sebenarnya
-        const response = await fetch('/api/visitor-count');
-        const data = await response.json();
-        setVisitorCount(data.count);
-      } catch (error) {
-        console.error('Error fetching visitor count:', error);
+    // Simulasi penghitungan pengunjung menggunakan localStorage
+    const getVisitorCount = () => {
+      const count = localStorage.getItem('visitorCount');
+      if (count) {
+        return parseInt(count, 10);
       }
+      return 0;
     };
 
-    fetchVisitorCount();
+    const incrementVisitorCount = () => {
+      const newCount = getVisitorCount() + 1;
+      localStorage.setItem('visitorCount', newCount.toString());
+      return newCount;
+    };
+
+    setVisitorCount(incrementVisitorCount());
   }, []);
 
   return (
@@ -88,7 +91,7 @@ const Footer: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            Total Visitors: {' '}
+            Page Views: {' '}
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

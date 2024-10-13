@@ -23,7 +23,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
         setCurrentWordIndex(currentWordIndex + 1);
       } else {
         setIsFinishing(true);
-        setTimeout(onFinish, 3000); // Increased time for final animation
+        setTimeout(onFinish, 3000);
       }
     }, 1500);
 
@@ -121,9 +121,9 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             <motion.div
               key={currentWordIndex}
               className="absolute text-[#64FFDA] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-center"
-              initial={{ opacity: 0, scale: 0.5, y: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.5, y: -50 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50, transition: { duration: 0.2 } }}
               transition={{
                 type: "spring",
                 stiffness: 100,
@@ -135,9 +135,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             </motion.div>
           )}
         </AnimatePresence>
-        {isFinishing && (
-          <FinalAnimation />
-        )}
+        {isFinishing && <FinalAnimation />}
       </div>
     </motion.div>
   );
